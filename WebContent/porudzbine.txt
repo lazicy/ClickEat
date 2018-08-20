@@ -1,0 +1,4 @@
+1;8#1,15#1;1320.0;7/7/2018;predragns;kovca;3;Slanije;false;
+2;4#1;250.0;8/7/2018;predragns;miladinovski;4;-;false;
+3;3#1,5#1,10#1,12#1;1519.0;8/7/2018;proba;miladinovski;4;ljuto i ladno;true;
+4;5#2,10#1,12#2;1328.0;9/7/2018;filipo;kovca;4;ladnog piva sto manje;true;

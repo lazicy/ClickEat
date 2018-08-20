@@ -1,0 +1,125 @@
+<div class="navbar-main">
+
+
+        <span style="float: right;">
+    
+            <span ng-show="!isLoggedIn">
+                <a href="#!/login">Prijavi se</a>
+                <a href="#!/registration">Registracija</a>
+            </span>
+        </span>
+        
+        <a href="#!/">Početna</a>
+        
+        <a href="#!/liste#artikli">Artikli</a>
+        <a href="#!/liste#restorani">Restorani</a>
+        <span ng-show="isLoggedIn">
+            <a href="#!/liste#vozila" ng-show="isAdmin || isDostavljac">Vozila</a>
+            <a href="#!/liste#users" ng-show="isAdmin">Korisnici</a>
+            
+            <span style="float: right;">
+                <a href="#!/profile">Profil</a>
+                <a href="#!/logout">Odjavi se</a>
+                
+            </span>
+            
+        </span>
+    </div>
+
+
+<div ng-show="!lista" class="center-align">
+    <div ng-controller="korpaController">
+            <korpa/>
+    </div>
+  
+    <h1>{{restoran.naziv}}</h1>
+    <h4>{{restoran.kategorijaStr}}</h2>
+    <h4>{{restoran.adresa}}</h2>
+    
+    <img class="restoran-main" ng-src="{{restoran.image}} ">
+
+    <h4>Jela u ponudi</h4>
+    <table class="lista">
+        
+        <tr ng-repeat="jelo in restoran.jelaMap" ng-show="jelo.aktivan">
+            <td class="left-align-td naziv">{{ jelo.naziv }}</td>
+            <td>{{ jelo.kolicina}} g</td>
+            <td>{{ jelo.cena }} RSD</td>
+            <td>{{ jelo.opis }}</td>
+            <td ng-show="isAdmin">
+                <button ng-click="deleteArtikal(jelo)">Briši</button>
+            </td>
+            <td ng-show="isAdmin">
+                <a href="#!/artikalmanipulation#modify{{jelo.id}}">Izmeni</a>
+            </td>
+
+            
+            <td ng-show="isKupac" class="small-field">
+                <input type="number"  ng-model="jelo.porcija" ng-init="jelo.porcija = 1" value="1" min="1" max="10" required>
+            </td>
+            <td ng-show="isKupac">
+                <button type="submit" ng-click="dodajArtikal(jelo)" >Dodaj u korpu </button>
+            </td>
+            
+            
+        </tr>
+
+    </table>
+
+    <h4>Pića u ponudi</h4>
+    <table class="lista">
+        
+        <tr ng-repeat="pice in restoran.picaMap" ng-show="pice.aktivan">
+            <td class="left-align-td naziv">{{ pice.naziv }}</td>
+            <td>{{ pice.kolicina}} ml</td>
+            <td>{{ pice.cena }} RSD</td>
+            <td>{{ pice.opis }}</td>
+            <td  ng-show="isAdmin">
+                <button ng-click="deleteArtikal(pice)">Briši</button>
+            </td>
+            <td ng-show="isAdmin">
+                    <a href="#!/artikalmanipulation#modify{{pice.id}}">Izmeni</a>
+            </td>
+            
+            <td ng-show="isKupac"  class="small-field">
+                <input type="number"  ng-model="pice.porcija"  ng-init="pice.porcija = 1"  ng-value="1" min="1" max="10" required>
+            </td>
+            <td ng-show="isKupac">
+                <button type="submit" ng-click="dodajArtikal(pice)" >Dodaj u korpu </button>
+            </td>
+        </tr>
+
+    </table>
+
+    <div ng-show="isAdmin">
+            <a href="#!/restoranmanipulation#modify{{restoran.id}}">Izmeni restoran</a>
+            </br>
+            <a href="" ng-click="deleteRestoran()">Ukloni restoran</a>
+            </br>
+            <a href="#!/artikalmanipulation#new">Novi artikal</a>
+        </div>
+
+    <div ng-show="isKupac">
+        <a href="" ng-show="!isFavRestoran" ng-click="addToFavRestorani(restoran)" >Dodaj u listu omiljenih restorana</a>
+        <a href="" ng-show="isFavRestoran" ng-click="removeFromFavRestorani(restoran)" >Ukloni iz liste omiljenih restorana</a>
+        
+    </div>
+    
+    
+    
+
+</div>
+
+<div ng-show="lista">
+        <table>
+                <tr>
+                    <td class="linkless" ng-repeat="r in restorani">
+                     
+                        <a href="#!/restoran#{{r.id}}"><restoran/></a>
+        
+                    </td>
+                </tr>
+            </table>
+
+
+</div>

@@ -1,0 +1,685 @@
+html {
+    font-family: sans-serif;
+}
+
+body {
+    background-color: rgb(2, 34, 102);
+}
+
+body .main-container {
+    width: 75%;
+    padding: 10px;
+
+    background-color: white;
+    border: 3px solid rgb(1, 19, 39);
+    border-radius: 7px;
+    overflow: hidden;
+    margin: 130px auto;
+    
+}
+
+/* box item za restorane: restoran-box */
+.restoran-box {
+    position:relative;
+    border-radius: 10px;
+    overflow: hidden;
+    text-align: center;
+    border: 2px solid;
+    color: white;
+    background-color: rgb(0, 15, 32);
+    width: 190px;
+    height: 240px;
+    padding-bottom: 10px;
+}
+
+.restoran-box .adresa{
+    font-size: 11px;
+}
+
+.restoran-box img {
+    width: 190px;
+    height: 120px;
+    object-fit: cover;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}   
+
+.restoran-box:hover {
+    opacity: 0.95;
+}
+
+/* forme */
+.form-container {
+    width: 350px;
+    margin: auto;
+}
+
+.form-ctrl input[type=text], input[type=password], input[type=email], input[type=file], input[type=number], select{
+    width: 100%;
+    padding: 5px 5px;
+    margin: 4px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.form-ctrl.has-error input {
+    border: 1px solid rgb(216, 2, 2);
+
+}
+.form-ctrl input[type=text] ng-readonly {
+    background-color: lightslategrey;
+}
+
+.form-actions button[type=submit] {
+    width: 100%;
+    background-color: rgb(2, 34, 102);
+    color: white;
+    padding: 6px 8px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.form-actions button[disabled] {
+    opacity: 0.2;
+    cursor: auto;
+}
+
+
+
+button:hover {
+    opacity: 0.8;
+}
+
+
+
+div[class*='tip'] {
+    padding: 0.6em;
+    font-size: 10px;
+    font-weight: bolder;
+    text-transform: uppercase;
+}
+
+
+
+.tip1 {
+   
+    background-color: brown;
+}
+
+.tip2 {
+   
+    background-color: rgb(6, 134, 167);
+}
+
+.tip3 {
+   
+    background-color: rgb(122, 7, 107);
+}
+
+.tip4 {
+   
+    background-color: rgb(253, 165, 0);
+}
+
+.tip5 {
+   
+    background-color: rgb(255, 0, 106);
+}
+
+
+.tip6 {
+    
+    background-color: green;
+}
+
+
+.linkless > a {
+    text-decoration: none;
+}
+
+.image-container {
+    position: relative;
+    width: 100%;
+}
+
+
+
+.overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgb(15, 107, 255);
+    opacity: 0.8;
+    overflow: hidden;
+    width: 100%;
+    height: 0;
+    transition: .4s ease;
+  }
+
+.image-container:hover .overlay {
+    height: 100%;   
+}
+
+.text-overlay {
+    white-space: nowrap; 
+    color: white;
+    font-size: 17px;
+    position: absolute;
+    overflow: hidden;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+}
+
+.circle-base {
+    border-radius: 50%;
+    behavior: url(PIE.htc); /* remove if you don't care about IE8 */
+}
+
+.korpa-mini-icon {
+    float: right;
+    width: 18px;
+    height: 18px;
+    color: white;
+    background-color: orange;
+    border: 2px solid darkslategrey;
+    text-align: center;
+    
+}
+
+
+.korpa-mini-preview {
+    margin: 15px;
+    padding: 5px;
+    background-color: white;
+    position: relative;
+    color: black;
+    border: 2px solid orangered;
+}
+
+.korpa-extended {
+    margin: auto;
+}
+
+table.korpa-extended-table {
+    width: 100%;
+    table-layout: fixed;
+}
+
+
+table.korpa-extended-table td {
+    font-size: 16px;
+    padding: 4px;
+    text-align: right;
+    border-bottom: 1px solid rgb(194, 220, 255);
+    font-weight: 100;
+}
+
+table.korpa-extended-table th {
+    font-weight: 300;
+    color: rgb(119, 118, 118);
+    border-bottom: 1px solid rgb(195, 195, 195);
+    font-size:  12px;
+    text-align: right;
+}
+
+.left-align-td {
+    text-align: left !important;
+}
+
+.right-align-td {
+    text-align: right !important;
+}
+
+.center-align-td {
+    text-align: center !important;
+}
+
+.unit {
+    font-weight: 500;
+    text-transform: uppercase;
+    font-size: 13px;
+    color: rgb(164, 171, 187);
+}
+
+.align-center{
+    text-align: center;
+}
+
+.unit-large {
+    font-weight: 500;
+    text-transform: uppercase;
+    font-size: 19px;
+    color: rgb(164, 171, 187);
+}
+
+.naziv-artikla {
+    font-size: 22px;
+    font-weight: 550;
+    color: rgb(2, 64, 197);
+}
+
+.center-div {
+    display: flex;
+    justify-content: center;
+}
+
+.poruci {
+    width: 40%;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 17px;
+    background-color: rgb(0, 168, 56);
+    color: white;
+    padding: 6px 8px;
+    margin: 15px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+}
+
+.standard-button {
+    font-weight: normal;
+    text-transform: uppercase;
+    font-size: 15px;
+    background-color: rgb(143, 143, 143);
+    color: white;
+    padding: 6px 8px;
+    margin-top: 20px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+}
+
+.standard-button.kupovina {
+    font-weight: 700;
+    background-color: rgb(0, 168, 56);
+}
+
+.standard-button.kupovina:hover {
+    background-color: rgb(9, 228, 82);
+    opacity: 1;
+}
+
+.standard-button.kupovina:disabled {
+    opacity: 0.3;
+}
+
+
+.ukupno {
+    padding: 5px;
+    text-align: right;
+    font-size: 21px;
+    font-weight: 200;
+}
+
+.ukupno .ukupno-cifra {
+    font-weight: 600;
+    color: rgb(4, 50, 148);
+    
+}
+
+.napomena {
+    width: 100%;
+    height: 120px;
+}
+
+.supreme-container{
+    -webkit-filter: blur(4px);
+    -moz-filter: blur(4px);
+    -o-filter: blur(4px);
+    -ms-filter: blur(4px);
+    filter: blur(4px);
+}
+
+.dialog-porudzbina {
+   
+    background-color: rgb(2, 37, 78);
+    color: white;
+    text-shadow: 1px 1px 0.5px black;
+    font-weight: 600;
+    text-align: center;
+    font-size: 18px;
+    width: 400px;
+    height: 80px;
+    padding: 25px;
+    border: 4px solid rgb(1, 19, 39);
+    border-radius: 10px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+
+    margin: -60px 0 0 -230px;
+}
+
+
+
+.remove-icon {
+    background-image: url('icons/cancel.png');
+    background-size: 14px 14px;
+    background-repeat: no-repeat;
+    height: 14px;
+    width: 14px;
+    
+}
+
+.remove-icon:hover {
+    opacity: 0.4;
+}
+
+.loading {
+    height: 25px;
+    width: 25px;
+    background-image: url('icons/load.gif');
+    background-size: 25px 25px;
+    background-repeat: no-repeat;
+    position: absolute;
+    top: 5%;
+    left: 50%;
+
+    margin: 0px 0 0 -10px;
+}
+
+.profile {
+    margin: 0px auto;
+
+}
+
+.info-header {
+    width: 100%;
+    height: 25px;
+    padding: 10px;
+    color: rgb(4, 60, 182);
+    font-size: 21px;
+    font-weight: 500;
+    border-bottom: 2px solid rgb(2, 34, 102);
+    display: inline-block;
+    cursor: pointer;
+}
+
+.info-header:hover {
+    color: rgb(4, 72, 218);
+}
+
+
+table.porudzbina-table {
+    width: 100%;
+    table-layout: fixed;
+}
+
+
+table.porudzbina-table td {
+    font-size: 16px;
+    padding: 4px;
+    text-align: center;
+    font-weight: 100;
+}
+
+table.porudzbina-table th {
+    font-weight: 300;
+    color: rgb(119, 118, 118);
+    border-bottom: 1px solid rgb(195, 195, 195);
+    font-size:  12px;
+    padding: 4px;
+    text-align: center;
+}
+
+.tiny-field-td {
+    width: 20px !important;
+    color: rgb(119, 118, 118);
+    text-align: center;
+}
+
+.small-field {
+    width: 100px !important;
+}
+
+.red {
+    color: orangered !important;
+}
+
+.tiny-field-td:hover {
+    color: rgb(4, 72, 218);
+    cursor: pointer;
+}
+
+table.porudzbina-table.outer tr {
+    border-bottom: 1px solid rgb(194, 220, 255);
+
+}
+
+table.porudzbina-table.outer tr:hover {
+    background-color:  rgb(243, 247, 253);
+
+}
+
+table.navbar-lists {
+    width: 100%;
+    table-layout: fixed;
+    background-color: rgb(2, 34, 102);
+    color: white;
+    text-transform: uppercase;
+    font-size: 15px;
+    font-weight: 500;
+}
+
+table.navbar-lists td {
+    
+    padding: 8px;
+    text-align: center;
+
+}
+
+table.navbar-lists td:hover {
+    background-color: rgb(5, 75, 226);
+    cursor: pointer;
+}
+
+table.navbar-lists td.activetab {
+    background-color: rgb(2, 17, 49);
+}
+
+table.lista {
+    width: 100%;
+    table-layout: fixed;
+    font-size: 16px;
+    padding: 10px;
+}
+
+table.lista td {
+    padding: 3px;
+    text-align: center;
+    border-bottom: 1px solid rgb(243, 243, 243);
+}
+
+table.lista th {
+    font-weight: 300;
+    color: rgb(119, 118, 118);
+    border-bottom: 1px solid rgb(195, 195, 195);
+    font-size:  12px;
+    padding: 4px;
+    text-align: center;
+}
+
+table.lista .naziv {
+    font-size: 19px;
+    font-weight: 500;
+    color: rgb(0, 75, 161);
+}
+
+.smaller-font {
+    font-size: 14px;
+}
+
+.restoran-header {
+    width: 100%;
+    height: 30px;
+    padding: 7px;
+    color: rgb(0, 5, 82);
+    font-size: 21px;
+    font-weight: 500;
+    display: inline-block;
+}
+
+.restoran-header:hover {
+    opacity: 0.9;
+    cursor: pointer;
+}
+
+.restoran-field {
+    padding: 10px;
+}
+
+
+.rect {
+    display: inline-block;
+    margin-right: 30px;
+}
+
+
+.rect img{
+    width: 180px;
+    height: 100px;
+    border-radius: 10px;
+    overflow: hidden;
+    object-fit: cover;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.rect {
+    font-size: 17px;
+    margin: 5px;
+    vertical-align: middle;
+}
+
+.rect .naziv {
+    font-weight: 600;
+    font-size: 22px;
+    color: rgb(0, 75, 161);
+}
+
+.rect .image-container .overlay {
+    border-radius: 10px;
+}
+
+.vozilo-actions {
+    height: 40px;
+    display: inline-block;
+    text-align: right;
+    padding: 8px;
+    margin-bottom: 5px;
+}
+
+.button-normal {
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 14px;
+    background-color: rgb(0, 23, 126);
+    color: white;
+    padding: 6px 8px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+}
+
+.button-normal:hover {
+    background-color: rgb(4, 97, 204);
+    opacity: 1;
+}
+
+.button-normal:disabled {
+    opacity: 0.2;
+}
+
+.button-normal:disabled:hover {
+    color: white;
+}
+
+.info-header .black {
+    color: black;
+}
+
+#select-vozilo {
+    display: inline-block !important;
+    width: 30%;
+    margin-bottom: 10px;
+}
+
+.smaller {
+    display: inline-block !important;
+    width: 100%;
+
+}
+
+img.restoran-main {
+    width: 800px;
+    height: 200px;
+    border-radius: 6px;
+    overflow: hidden;
+    object-fit: cover;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+
+}
+
+.navbar-main {
+    height: 30px;
+    width: 75%;
+    background-color: rgb(1, 19, 39);
+    color: white;
+    border:3px solid rgb(1, 19, 39);
+    border-radius: 7px;
+    position: absolute;
+    padding: 10 10 0 10;
+    top: 0%;
+    text-transform: uppercase;
+    font-size: 17px;
+    font-weight: 600;
+    text-decoration: none;
+    margin: -10px 0 0 -15px;
+
+}
+
+.navbar-main a {
+    text-decoration: none;
+    color: white;
+}
+
+.navbar-main a:hover {
+    color: rgb(0, 119, 255);
+}
+
+.title {
+    font-size: 70px;
+    color: white;
+    font-weight: 400;
+    text-shadow: 3px 3px 2px rgb(1, 19, 39);
+    top: 30px;
+    position: absolute;
+    text-transform: uppercase;
+    margin: 0px;
+    cursor: default;
+}
+
+.title .bold {
+    font-weight: bold;
+}
+
+.title a {
+    text-decoration: none;
+    color: white;
+}
+
+.title a:hover {
+    color:rgb(0, 119, 255);
+}

@@ -1,0 +1,134 @@
+<div class="navbar-main">
+
+
+                <span style="float: right;">
+            
+                    <span ng-show="!isLoggedIn">
+                        <a href="#!/login">Prijavi se</a>
+                        <a href="#!/registration">Registracija</a>
+                    </span>
+                </span>
+                
+                <a href="#!/">Početna</a>
+                
+                <a href="#!/liste#artikli">Artikli</a>
+                <a href="#!/liste#restorani">Restorani</a>
+                <span ng-show="isLoggedIn">
+                    <a href="#!/liste#vozila" ng-show="isAdmin || isDostavljac">Vozila</a>
+                    <a href="#!/liste#users" ng-show="isAdmin">Korisnici</a>
+                    
+                    <span style="float: right;">
+                        <a href="#!/profile">Profil</a>
+                        <a href="#!/logout">Odjavi se</a>
+                        
+                    </span>
+                    
+                </span>
+            </div>
+
+<div ng-show="isAdmin">
+   
+        <form name="addForm" ng-submit="addVozilo()" ng-show="new">
+            <div class="form-container">
+                <h1>Dodavanje novog vozila</h1>
+                <div class="form-ctrl">
+                    <label for="marka">Marka vozila: </label>
+                    <input type="text" name="marka" ng-model="novi.marka" required>
+                </div>
+
+                <div class="form-ctrl">
+                        <label for="model">Model vozila: </label>
+                        <input type="text" name="model" ng-model="novi.model" required>
+                </div>
+
+                <div class="form-ctrl">
+                        <label for="tip">Tip vozila: </label>
+                        <select name="tip" ng-model="novi.tip"  required>
+                            <option value="1">Bicikl</option>
+                            <option value="2">Skuter</option>
+                            <option value="3">Automobil</option>
+                        </select>
+                </div>
+
+                <div class="form-ctrl" ng-class="{'has-error': regerror}" ng-hide="novi.tip == 1">
+                        <label for="registracija">Registraciona oznaka: </label>
+                        <input type="text" name="registracija" ng-model="novi.registracija" ng-keyup="registracijaValidate()" ng-required="novi.tip != 1">
+                        <span ng-show="regerror">Neispravan format registracione oznake. <span class="unit">(format: AA111NS)</span></span>
+                </div>
+
+                <div class="form-ctrl">
+                        <label for="godina-proizvodnje">Godina proizvodnje: </label>
+                        <input type="number" name="godina-proizvodnje" ng-model="novi.godinaProizvodnje" ng-keyup="godinaPrValidate()" required>
+                </div>
+
+
+                <div class="form-ctrl">
+                        <label for="napomena">Napomena: </label>
+                        <input type="text" name="napomena" ng-model="novi.napomena">
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" ng-disabled="(addForm.$invalid) || (regerror && novi.tip != 1)">Dodaj novo vozilo</button>
+                </div>
+    
+    
+    
+        
+              
+            </div>
+        </form>
+    
+        <form name="modifyForm" ng-submit="modifyVozilo()" ng-show="modify" >
+                <div class="form-container">
+                    <h1>Izmena vozila</h1>
+
+                    <div class="form-ctrl">
+                        <label for="marka">Marka vozila: </label>
+                        <input type="text" name="marka" ng-model="izmena.marka" required>
+                    </div>
+    
+                    <div class="form-ctrl">
+                            <label for="model">Model vozila: </label>
+                            <input type="text" name="model" ng-model="izmena.model" required>
+                    </div>
+    
+                    <div class="form-ctrl">
+                            <label for="tip">Tip vozila: </label>
+                            <select name="tip" ng-model="tipStr"  required>
+                                <option value="1">Bicikl</option>
+                                <option value="2">Skuter</option>
+                                <option value="3">Automobil</option>
+                            </select>
+                    </div>
+    
+                    <div class="form-ctrl" ng-class="{'has-error': regerror}" ng-hide="tipStr == 1">
+                            <label for="registracija">Registraciona oznaka: </label>
+                            <input type="text" name="registracija" ng-model="izmena.registracija" ng-keyup="registracijaValidate()" ng-required="tipStr != 1">
+                            <span ng-show="regerror">Neispravan format registracione oznake. <span class="unit">(format: AA111NS)</span></span>
+                    </div>
+    
+                    <div class="form-ctrl">
+                            <label for="godina-proizvodnje">Godina proizvodnje: </label>
+                            <input type="text" name="godina-proizvodnje" ng-model="izmena.godinaProizvodnje" required>
+                    </div>
+    
+    
+                    <div class="form-ctrl">
+                            <label for="napomena">Napomena: </label>
+                            <input type="text" name="napomena" ng-model="izmena.napomena">
+                    </div>
+        
+                    <div class="form-actions">
+                        <button type="submit" ng-disabled="(modifyForm.$invalid) || (regerror && tipStr != 1)">Izmeni vozilo</button>
+                    </div>
+        
+        
+        
+            
+                  
+                </div>
+            </form>
+    
+    
+    
+    </div>

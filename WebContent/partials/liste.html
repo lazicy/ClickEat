@@ -1,0 +1,350 @@
+<div class="navbar-main">
+
+
+        <span style="float: right;">
+    
+            <span ng-show="!isLoggedIn">
+                <a href="#!/login">Prijavi se</a>
+                <a href="#!/registration">Registracija</a>
+            </span>
+        </span>
+        
+        <a href="#!/">Početna</a>
+        
+        <a href="#!/liste#artikli">Artikli</a>
+        <a href="#!/liste#restorani">Restorani</a>
+        <span ng-show="isLoggedIn">
+            <a href="#!/liste#vozila" ng-show="isAdmin || isDostavljac">Vozila</a>
+            <a href="#!/liste#users" ng-show="isAdmin">Korisnici</a>
+            
+            <span style="float: right;">
+                <a href="#!/profile">Profil</a>
+                <a href="#!/logout">Odjavi se</a>
+                
+            </span>
+            
+        </span>
+    </div>
+
+<div ng-controller="korpaController">
+        <korpa/>
+</div>
+
+
+
+<table class="navbar-lists">
+    <tr>
+        <td ng-click="artikliClick()"  ng-class="{activetab: activeTab == 1}">Artikli</td>
+        <td ng-click="restoraniClick()" ng-class="{activetab: activeTab == 2}">Restorani</td>
+        <td ng-click="vozilaClick()" ng-show="isDostavljac || isAdmin"  ng-class="{activetab: activeTab == 3}">Vozila</td>
+        <td ng-click="usersClick()" ng-show="isAdmin"  ng-class="{activetab: activeTab == 4}">Korisnici</td>
+    </tr>
+</table>
+
+<!-- artikli -->
+<div ng-show="activeTab == 1">
+
+    <!-- jela -->
+    <div class="vozilo-actions" ng-show="isAdmin">
+            <button class="button-normal" ng-click="noviArtikal()">Novi artikal</button>
+           
+    </div>
+    <div class="info-header" ng-click="expandOrToggleJela()">
+        <span ng-show="expandJela">▼</span>
+        <span ng-show="!expandJela">►</span>
+        Jela
+    </div>
+    <table class="lista" ng-show="expandJela">
+        <tr>
+            <th class="left-align-td">Naziv artikla</th>
+            <th>Restoran</th>
+            <th>Opis</th>
+            <th class="small-field">Količina</th>
+            <th class="right-align-td small-field">Cena</th>
+            <th  class="tiny-field-td"  ng-show="isAdmin">&nbsp;</th>
+            <th class="tiny-field-td" ng-show="isAdmin">&nbsp;</th>
+        </tr>
+
+        <tr>
+            <th colspan="5"><input class="smaller" type="text" ng-model="searchNaziv"></th>
+            
+            <th ng-show="isAdmin"></th>
+            <th ng-show="isAdmin"></th>
+            
+            
+
+            
+        </tr>
+        <tr ng-repeat="a in artikli | filter: searchNaziv" ng-show="a.tip == 1 && a.aktivan">
+            <td class="naziv left-align-td">{{a.naziv}}</td>
+            <td><a href="#!/restoran#{{a.restoranId}}"><span ng-bind="restoraniMap[a.restoranId].naziv"> </span></a></td>
+            <td class="smaller-font left-align-td">{{a.opis}}</td>
+            <td class="small-field">{{a.kolicina}} <span class="unit">g</span></td>
+            <td class="right-align-td small-field">{{a.cena}} <span class="unit">RSD</span></td>
+            <td class="tiny-field-td"  ng-show="isAdmin" ng-click="izmenaArtikla(a.id)">✎</td>
+            <td class="tiny-field-td"  ng-show="isAdmin" ng-click="izmenaArtikla(a.id)">🗑️</td>
+        </tr>
+    </table>
+
+    <!-- pica -->
+    <div class="info-header" ng-click="expandOrTogglePica()">
+            <span ng-show="expandJela">▼</span>
+            <span ng-show="!expandJela">►</span>
+            Pića
+    </div>
+    <table class="lista" ng-show="expandPica">
+        <tr>
+            <th class="left-align-td">Naziv artikla</th>
+            <th>Restoran</th>
+            <th>Opis</th>
+            <th class="small-field">Količina</th>
+            <th class="right-align-td small-field">Cena</th>
+            <th  class="tiny-field-td"  ng-show="isAdmin">&nbsp;</th>
+            <th class="tiny-field-td" ng-show="isAdmin">&nbsp;</th>
+        </tr>
+        <tr>
+
+            
+            <th colspan="5"><input class="smaller" type="text" ng-model="searchNazivPica"></th>
+            
+            <th ng-show="isAdmin"></th>
+            <th ng-show="isAdmin"></th>
+        </tr>
+
+        <tr ng-repeat="a in artikli | filter: searchNazivPica" ng-show="a.tip == 2    && a.aktivan">
+            <td class="naziv left-align-td">{{a.naziv}}</td>
+            <td><a href="#!/restoran#{{a.restoranId}}"><span ng-bind="restorani[a.restoranId].naziv"> </span></a></td>
+            <td class="smaller-font left-align-td">{{a.opis}}</td>
+            <td class="small-field">{{a.kolicina}} <span class="unit">ml</span></td>
+            <td class="right-align-td small-field">{{a.cena}} <span class="unit">RSD</span></td>
+            <td class="tiny-field-td"  ng-show="isAdmin" ng-click="izmenaArtikla(a.id)">✎</td>
+            <td class="tiny-field-td"  ng-show="isAdmin" ng-click="izmenaArtikla(a.id)">🗑️</td>
+        </tr>
+        </table>
+</div>
+
+
+<!-- restorani -->
+<div ng-show="activeTab == 2">
+    
+    <div class="vozilo-actions" ng-show="isAdmin">
+        <button class="button-normal" ng-click="noviRestoran()">Novi restoran</button>
+    </div>
+
+    <div class="vozilo-actions">
+            <input class="smaller" type="text" ng-model="searchNazivRestorani">
+     </div>
+    <!-- domaca kuhinja -->
+    <div class="info-header" ng-click="expandOrToggle(1)">
+        <span ng-show="expand[1]">▼</span>
+        <span ng-show="!expand[1]">►</span>
+        Domaća kuhinja
+    </div>
+    <div ng-show="expand[1]">
+           
+            <div ng-repeat="r in restorani | filter: searchNazivRestorani" ng-show="r.kategorija == 1 && r.aktivan">
+            
+                    <restoran-extended/>
+                </div>
+        
+    </div>
+
+    <div class="info-header" ng-click="expandOrToggle(2)">
+            <span ng-show="expand[2]">▼</span>
+            <span ng-show="!expand[2]">►</span>
+            Roštilj
+     </div>
+    <div ng-show="expand[2]">
+            
+            <div ng-repeat="r in restorani | filter: searchNazivRestorani" ng-show="r.kategorija == 2 && r.aktivan">
+            
+                <restoran-extended/>
+            </div>
+    
+    </div>
+
+    <div class="info-header" ng-click="expandOrToggle(3)">
+            <span ng-show="expand[3]">▼</span>
+            <span ng-show="!expand[3]">►</span>
+            Kineska kuhinja
+     </div>
+    <div ng-show="expand[3]">
+            
+            <div ng-repeat="r in restorani | filter: searchNazivRestorani" ng-show="r.kategorija == 3 && r.aktivan">
+            
+                    <restoran-extended/>
+                </div>
+        
+    </div>
+
+    <div class="info-header" ng-click="expandOrToggle(4)">
+            <span ng-show="expand[4]">▼</span>
+            <span ng-show="!expand[4]">►</span>
+            Indijska kuhinja
+     </div>
+    <div ng-show="expand[4]">
+            
+            <div ng-repeat="r in restorani | filter: searchNazivRestorani" ng-show="r.kategorija == 4 && r.aktivan">
+            
+                    <restoran-extended/>
+                </div>
+        
+    </div>
+
+    <div class="info-header" ng-click="expandOrToggle(5)">
+            <span ng-show="expand[5]">▼</span>
+            <span ng-show="!expand[5]">►</span>
+            Poslastičarnice
+     </div>
+    <div ng-show="expand[5]">
+            
+            <div ng-repeat="r in restorani | filter: searchNazivRestorani" ng-show="r.kategorija == 5 && r.aktivan">
+            
+                    <restoran-extended/>
+                </div>
+        
+    </div>
+
+    <div class="info-header" ng-click="expandOrToggle(6)">
+            <span ng-show="expand[6]">▼</span>
+            <span ng-show="!expand[6]">►</span>
+            Picerije
+     </div>
+    <div ng-show="expand[6]">
+            
+            <div ng-repeat="r in restorani | filter: searchNazivRestorani" ng-show="r.kategorija == 6 && r.aktivan">
+            
+                    <restoran-extended/>
+                </div>
+        
+    </div>
+
+
+</div>
+
+    
+<!-- vozila -->
+<div ng-show="activeTab == 3" ng-show="isAdmin || isDostavljac">
+
+        <div class="vozilo-actions" ng-show="isAdmin">
+            <button class="button-normal" ng-click="novoVozilo()">Novo vozilo</button>
+        </div>
+        <table class="lista">
+            <tr>
+                <th class="left-align-td">Marka</th>
+                <th class="small-field">Model</th>
+                <th>Tip</th>
+                <th>Registracija</th>
+                <th class="small-field">Godina proizvodnje</th>
+                <th>Status</th>
+                <th>Napomena</th>
+                <th  class="tiny-field-td"  ng-show="isAdmin">&nbsp;</th>
+                <th class="tiny-field-td" ng-show="isAdmin">&nbsp;</th>
+                <th class="small-field" ng-show="isDostavljac">&nbsp;</th>
+            </tr>
+            <tr ng-repeat="v in vozila" ng-show="v.aktivan">
+                <td class="left-align-td">{{v.marka}}</td>
+                <td>{{v.model}}</td>
+                <td><div ng-bind="tipoviVozila[v.tip]"></div></td>
+                <td>{{v.registracija}}</td>
+                <td class="small-field">{{v.godinaProizvodnje}}</td>
+                <td><span ng-show="v.uUpotrebi">U upotrebi</span><span ng-show="!v.uUpotrebi">Van upotrebe</span></td>
+                <td class="smaller-font">{{v.napomena}}</td>
+                <td class="tiny-field-td"  ng-show="isAdmin" ng-click="izmenaVozila(v.id)">✎</td>
+                <td class="tiny-field-td"  ng-show="isAdmin" ng-click="brisanjeVozila(v.id)">🗑️</td>
+                <td class="small-field" ng-show="isDostavljac">
+                    <button class="button-normal" ng-disabled="v.uUpotrebi || user.vozilo != null" ng-click="zaduziVozilo(v.id)">Zaduži vozilo</button>
+                </td>
+                
+            </tr>
+            </table>
+</div>
+
+    
+<!-- users -->
+<div ng-show="activeTab == 4" ng-show="isAdmin">
+
+        <!-- admini -->
+        <div class="info-header red" ng-click="expandOrToggleUsers(2)">
+                <span ng-show="expandUsers[2]">▼</span>
+                <span ng-show="!expandUsers[2]">►</span>
+                Administratori
+        </div>
+        <table class="lista" ng-show="expandUsers[2]">
+                <tr>
+                    <th class="left-align-td">Korisničko ime</th>
+                    <th>Ime i prezime</th>
+                    <th>Telefon</th>
+                    <th>Email</th>
+                    <th>Datum registracije</th>
+                    <th class="small-field">&nbsp;</th>
+                <th class="tiny-field-td" ng-show="isAdmin">&nbsp;</th>
+                </tr>
+                <tr ng-repeat="u in users" ng-show="u.aktivan && u.role == 2">
+                    <td class="left-align-td naziv">{{u.username}}</td>
+                    <td>{{u.firstname}} {{u.lastname}}</td>
+                    <td>{{u.phone}}</td>
+                    <td>{{u.email}}</td>
+                    <td>{{u.registrationDate}}</td>
+                    <td class="small-field"><button class="button-normal" ng-click="goToUserProfile(u.username)">Profil</button></td>
+                    
+                </tr>
+        </table>
+        <!-- kupci -->
+        <div class="info-header" ng-click="expandOrToggleUsers(0)">
+                <span ng-show="expandUsers[0]">▼</span>
+                <span ng-show="!expandUsers[0]">►</span>
+                Kupci
+        </div>
+        <table class="lista" ng-show="expandUsers[0]">
+                <tr>
+                    <th class="left-align-td naziv">Korisničko ime</th>
+                    <th>Ime i prezime</th>
+                    <th>Telefon</th>
+                    <th>Email</th>
+                    <th>Datum registracije</th>
+                     <th class="small-field">&nbsp;</th>
+                <th class="tiny-field-td" ng-show="isAdmin">&nbsp;</th>
+                </tr>
+                <tr ng-repeat="u in users" ng-show="u.aktivan && u.role == 0">
+                    <td class="left-align-td">{{u.username}}</td>
+                    <td>{{u.firstname}} {{u.lastname}}</td>
+                    <td>{{u.phone}}</td>
+                    <td>{{u.email}}</td>
+                    <td>{{u.registrationDate}}</td>
+                    <td class="small-field"><button class="button-normal" ng-click="goToUserProfile(u.username)">Profil</button></td>
+                    
+                </tr>
+        </table>
+
+        <!-- kupci -->
+        <div class="info-header" ng-click="expandOrToggleUsers(1)">
+                <span ng-show="expandUsers[1]">▼</span>
+                <span ng-show="!expandUsers[1]">►</span>
+                Dostavljači
+        </div>
+        <table class="lista" ng-show="expandUsers[1]">
+                <tr>
+                    <th class="left-align-td naziv">Korisničko ime</th>
+                    <th>Ime i prezime</th>
+                    <th>Telefon</th>
+                    <th>Email</th>
+                    <th>Datum registracije</th>
+                    <th>Vozilo</th>
+                    <th class="small-field">&nbsp;</th>
+                <th class="tiny-field-td" ng-show="isAdmin">&nbsp;</th>
+                </tr>
+                <tr ng-repeat="u in users" ng-show="u.aktivan && u.role == 1">
+                    <td class="left-align-td">{{u.username}}</td>
+                    <td>{{u.firstname}} {{u.lastname}}</td>
+                    <td>{{u.phone}}</td>
+                    <td>{{u.email}}</td>
+                    <td>{{u.registrationDate}}</td>
+                    <td>{{u.vozilo}}</td>
+                    <td class="small-field"><button class="button-normal" ng-click="goToUserProfile(u.username)">Profil</button></td>
+                    
+                </tr>
+        </table>
+
+
+</div>

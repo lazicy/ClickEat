@@ -1,0 +1,150 @@
+<div class="navbar-main">
+
+
+    <span style="float: right;">
+
+        <span ng-show="!isLoggedIn">
+            <a href="#!/login">Prijavi se</a>
+            <a href="#!/registration">Registracija</a>
+        </span>
+    </span>
+    
+    <a href="#!/liste#artikli">Artikli</a>
+    <a href="#!/liste#restorani">Restorani</a>
+    <span ng-show="isLoggedIn">
+        <a href="#!/liste#vozila" ng-show="isAdmin || isDostavljac">Vozila</a>
+        <a href="#!/liste#users" ng-show="isAdmin">Korisnici</a>
+        
+        <span style="float: right;">
+            <a href="#!/profile">Profil</a>
+            <a href="#!/logout">Odjavi se</a>
+            
+        </span>
+        
+    </span>
+</div>
+<div>
+
+    <div ng-controller="korpaController">
+            <korpa/>
+    </div>
+    
+</div>
+
+<div>
+    <h1>Mora biti da ste gladni, {{ user.firstname }} {{ user.lastname }}?</h1>
+    <br/>
+    <div ng-hide="isDostavljac">
+
+        <div class="info-header">10 najpopularnijih artikala</div>
+        <table class="lista">
+            <tr>
+                <th class="left-align-td">Naziv artikla</th>
+                <th>Broj porudžbina</th>
+                <th>Količina po porciji</th>
+                <th>Cena</th>
+                
+            </tr>
+            <tr  ng-repeat="x in artikli | orderBy: '-popularnost' | limitTo: 10">
+                <td class="left-align-td naziv linkless"><a href="#!/restoran#{{x.restoranId}}">{{x.naziv}}</a></td>
+                <td>{{x.popularnost}}</td>
+                <td>{{x.kolicina}} <span class="unit" ng-show="x.tip == 1">g</span><span class="unit" ng-show="x.tip == 2">ml</span></td>
+                <td>{{x.cena}} <span class="unit">RSD</span></td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="info-header black" ng-show="isKupac && user.favRestorani.length > 0">Omiljeni restorani</div>
+    <table>
+        <tr>
+            <td class="linkless" ng-repeat="r in user.favRestorani">
+             
+                <a href="#!/restoran#{{r.id}}"><restoran/></a>
+
+            </td>
+        </tr>
+    </table>
+
+    <div ng-show="isAdmin">
+        <a href="#!/restoranmanipulation#new">Novi restoran</a>
+    </div>
+
+</div>
+
+<!-- DOSTAVLJAC VIEW -->
+<div ng-show="isDostavljac">
+    
+
+    <div class="info-header cursor-normal" ng-if="user.vozilo != null">Vozilo: <span class="black">{{user.vozilo.marka}} {{user.vozilo.model}}</span>&nbsp;<button class="button-normal" ng-click="razduziVozilo()" ng-disabled="zauzet" >Razduži vozilo</button></div>
+    <div class="info-header cursor-normal" ng-if="user.vozilo == null">
+        <button class="button-normal" ng-click="izaberiVozilo()">Izaberi vozilo</button>
+        
+    </div>
+
+    <div class="info-header cursor-normal">Aktivna porudžbina</div>
+    <table class="porudzbina-table">
+            <tr>
+                <th>Kupac</th>
+                <th>Datum</th>
+                <th>Napomena</th>
+                <th>Cena</th>
+                <th>Završi</th>
+                    
+            </tr>
+            <tr ng-show="zauzet">
+
+                <td>{{aktivna.kupacUsername}}</td>
+                <td>{{aktivna.datum}}</td>
+                <td>{{aktivna.napomena}}</td>
+                <td>{{aktivna.ukupnaCena}}</td>
+                <td><button class="button-normal kupovina" ng-click="dostavi(aktivna)">Dostavi</button></td>
+            </tr>
+
+            <div ng-show="!zauzet">
+                Nema aktivne porudžbine.
+            </div>   
+    </table>
+
+
+    <div class="info-header cursor-normal">Porudžbine za preuzimanje</div>
+    
+    <table class="porudzbina-table">
+        <tr>
+            <th>Kupac</th>
+            <th>Datum</th>
+            <th>Napomena</th>
+            <th>Cena</th>
+            <th>Preuzmi</th>
+            
+        </tr>
+        <tr ng-repeat="p in porudzbineMap" ng-show="p.statusPorudzbine == 1 && p.aktivna">
+            <td>{{p.kupacUsername}}</td>
+            <td>{{p.datum}}</td>
+            <td>{{p.napomena}}</td>
+            <td>{{p.ukupnaCena}}</td>
+            <td><button class="button-normal kupovina" ng-disabled="zauzet || user.vozilo == null" ng-click="preuzmiPorudzbinu(p.idPorudzbine)">Preuzmi</button></td>
+        </tr>
+    </table>
+
+    
+    <div class="info-header cursor-normal">Dostavljene porudžbine</div>
+    
+    <table class="porudzbina-table">
+        <tr>
+            <th>Kupac</th>
+            <th>Datum</th>
+            <th>Napomena</th>
+            <th>Cena</th>
+            
+        </tr>
+        <tr ng-repeat="p in user.porudzbine" ng-show="p.statusPorudzbine == 4">
+            <td>{{p.kupacUsername}}</td>
+            <td>{{p.datum}}</td>
+            <td>{{p.napomena}}</td>
+            <td>{{p.ukupnaCena}}</td>
+           
+        </tr>
+    </table>
+
+
+</div>

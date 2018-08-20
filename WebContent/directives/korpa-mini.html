@@ -1,0 +1,32 @@
+<div ng-show="isKupac" class="korpa-mini-icon circle-base">
+    <span><a href="" ng-click="expandAndToggleKorpaDiv()"> {{user.stavke.length}}</a></span> 
+
+</div>
+
+
+
+<div ng-show="expandKorpa" class="korpa-mini-preview">
+        <div ng-show="isKupac">
+                Sadržaj korpe:
+                <table ng-cloak class="lista">
+                    <thead>
+                        <td>Naziv artikla</td>
+                        
+                        <td>Broj porcija</td>
+                        
+                        <td>Cena</td>
+                        
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="stavka in user.stavke">
+                            <td>{{stavka.artikal.naziv}}</td>
+                            <td>{{stavka.brojPorcija}}</td>
+                            <td>{{stavka.artikal.cena * stavka.brojPorcija}} RSD </td> 
+                       </tr>
+                    </tbody>
+                </table>
+            
+                <h4 ng-cloak>Ukupno: {{user.ukupnaCena}} RSD</h4>
+                <button class="poruci" ng-click="checkout()">Poruči</button>
+            </div>
+</div>

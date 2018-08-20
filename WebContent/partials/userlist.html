@@ -1,0 +1,80 @@
+<div ng-controller="userController">
+    <table>
+        <!-- table header -->
+        <tr>
+            <td>
+                Username
+            </td>
+            <td>
+                Password
+            </td>
+            <td>
+                Firstname
+            </td>
+            <td>
+                Lastname
+            </td>
+            <td>
+                Role
+            </td>
+            <td>
+                Phone
+            </td>
+            <td>
+                Email
+            </td>
+            <td>
+                Registration date
+            </td>
+        </tr>
+
+        <tr ng-repeat="u in userlist">
+                <td>
+                    {{ u.username }}
+                </td>
+               
+                <td>
+                    {{ u.password }}
+                </td>
+               
+                <td>
+                    {{ u.firstname }}
+                </td>
+               
+                <td>
+                    {{ u.lastname }}
+                </td>
+                    
+                <td>
+                    {{ u.role }}
+                </td>
+             
+                <td>
+                    {{ u.phone }}
+                </td>
+             
+                <td>
+                    {{ u.email }}
+                </td>
+             
+                <td>
+                    
+                    {{ u.registrationDate }}
+                </td>
+
+                <td>
+                    <button class="standard-button" ng-click="goToUserProfile(u.username)">Profil</button>
+                </td>
+                        
+                        
+                        
+                        
+               
+            </tr>
+    
+    </table>
+
+
+
+
+</div>

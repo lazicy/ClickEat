@@ -1,0 +1,33 @@
+<div>
+
+    
+    <form name="form" ng-submit="login(userToLogin)">
+        
+        <div class="form-container">
+            <h1>Login</h1>
+            <div class="form-ctrl" >
+               
+                <label for="username">Korisničko ime: </label>
+                <input type="text" name="username"   ng-model="userToLogin.username" required />
+            
+            </div>
+            
+            <div class="form-ctrl" >
+            
+                <label for="password">Lozinka: </label>
+                <input type="password" name="password"   ng-model="userToLogin.password" required />
+                
+            </div>    
+            
+            <div class="form-actions">
+                <button type="submit" ng-disabled="form.$invalid" >Prijavi se</button>
+                <span ng-show="wrongUsername">Korisničko ime ne postoji.</span>
+                <span ng-show="wrongPassword">Pogrešna lozinka.</span>
+                
+            </div>
+        </div>
+    
+    </form>
+
+
+</div>

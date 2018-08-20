@@ -1,0 +1,7 @@
+1;Piknik;Ribarac BB, Novi Sad, Srbija;1;1,2;-;images/piknik.jpg;true;
+2;Flying Dutchman;Bulevar Oslobođenja 52, Novi Sad;6;3,12;5,7,10;images/dutchman.jpg;true;
+3;Oblomov;Vojvodjanskih brigada 19, Novi Sad;4;19,14;6,9,13;images/oblomov.jpg;true;
+4;Gondola;Bulevar Mihajla Pupina 10, Novi Sad;3;17,4;18;https://www.svetrestorana.rs/files/g195_gondola_04.jpg;true;
+5;Plava Frajla;Sutjeska 2, Novi Sad;1;15;8;http://serbia-touroperator.com/wp-content/uploads/2016/07/PlavaFrajla-Galerija-11.jpg?x487716;true;
+6;Aqua Doria;Kamenički put 21;2;16;-;https://www.nadji.info/www/Images/Venues/640/2414ed2c-3c8f-4d70-ab5b-f18079e05a20.jpg;false;
+7;De Gusto;Bulevar Oslobođenja 21;6;11;-;http://retaildesignblog.net/wp-content/uploads/2013/09/De-GUSTO-cafe-restaurant-by-MIKA-design-Novi-Sad-Serbia.jpg;true;

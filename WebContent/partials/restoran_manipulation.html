@@ -1,0 +1,118 @@
+<div class="navbar-main">
+
+
+        <span style="float: right;">
+    
+            <span ng-show="!isLoggedIn">
+                <a href="#!/login">Prijavi se</a>
+                <a href="#!/registration">Registracija</a>
+            </span>
+        </span>
+        
+        <a href="#!/">Početna</a>
+        
+        <a href="#!/liste#artikli">Artikli</a>
+        <a href="#!/liste#restorani">Restorani</a>
+        <span ng-show="isLoggedIn">
+            <a href="#!/liste#vozila" ng-show="isAdmin || isDostavljac">Vozila</a>
+            <a href="#!/liste#users" ng-show="isAdmin">Korisnici</a>
+            
+            <span style="float: right;">
+                <a href="#!/profile">Profil</a>
+                <a href="#!/logout">Odjavi se</a>
+                
+            </span>
+            
+        </span>
+    </div>
+
+<div ng-show="isAdmin">
+   
+    <form name="addForm" ng-submit="noviRestoran()" ng-show="new">
+        <div class="form-container">
+            <h1>Dodavanje novog restorana</h1>
+            <div class="form-ctrl">
+                <label for="naziv">Naziv restorana: </label>
+                <input type="text" name="naziv" ng-model="novi.naziv" required>
+            </div>
+
+            <div class="form-ctrl">
+                <label for="adresa">Adresa restorana: </label>
+                <input type="text" name="adresa" ng-model="novi.adresa" required>
+            </div>
+
+            <div class="form-ctrl">
+                <label for="kategorija">Kategorija: </label>
+                <select name="kategorija" ng-model="novi.kategorija"  required>
+                    <option value="1">Domaća kuhinja</option>
+                    <option value="2">Roštilj</option>
+                    <option value="3">Kineska kuhinja</option>
+                    <option value="4">Indijska kuhinja</option>
+                    <option value="5">Poslastičarnica</option>
+                    <option value="6">Picerija</option>
+                </select>
+            </div>
+
+
+            <div class="form-ctrl">
+                    <label for="image">Slika online URL: </label>
+                    <input type="text" name="image" ng-model="novi.image" >
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" ng-disabled="addForm.$invalid">Dodaj novi restoran</button>
+            </div>
+
+
+
+    
+          
+        </div>
+    </form>
+
+    <form name="modifyForm" ng-submit="modifyRestoran()" ng-show="modify" >
+            <div class="form-container">
+                <h1>Izmena restorana</h1>
+                <div class="form-ctrl">
+                    <label for="naziv">Naziv restorana: </label>
+                    <input type="text" name="naziv" ng-model="izmena.naziv" required>
+                </div>
+    
+                <div class="form-ctrl">
+                    <label for="adresa">Adresa restorana: </label>
+                    <input type="text" name="adresa" ng-model="izmena.adresa" required>
+                </div>
+    
+                <div class="form-ctrl">
+                    <label for="kategorija">Kategorija: </label>
+                    <select name="kategorija"  ng-model="kategorijaIdStr" required>
+                            <option value="1">Domaća kuhinja</option>
+                            <option value="2">Roštilj</option>
+                            <option value="3">Kineska kuhinja</option>
+                            <option value="4">Indijska kuhinja</option>
+                            <option value="5">Poslastičarnica</option>
+                            <option value="6">Picerija</option>
+
+                    </select>
+                </div>
+    
+    
+                <div class="form-ctrl">
+                        <label for="image">Slika online URL: </label>
+                        <input type="text" name="image" ng-model="izmena.image" >
+                </div>
+    
+                <div class="form-actions">
+                    <button type="submit" ng-disabled="modifyForm.$invalid">Izmeni restoran</button>
+                </div>
+    
+    
+    
+        
+              
+            </div>
+        </form>
+
+
+
+</div>

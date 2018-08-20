@@ -1,0 +1,267 @@
+<div class="navbar-main">
+
+
+        <span style="float: right;">
+    
+            <span ng-show="!isLoggedIn">
+                <a href="#!/login">Prijavi se</a>
+                <a href="#!/registration">Registracija</a>
+            </span>
+        </span>
+        
+        <a href="#!/">Početna</a>
+        
+        <a href="#!/liste#artikli">Artikli</a>
+        <a href="#!/liste#restorani">Restorani</a>
+        <span ng-show="isLoggedIn">
+            <a href="#!/liste#vozila" ng-show="isAdmin || isDostavljac">Vozila</a>
+            <a href="#!/liste#users" ng-show="isAdmin">Korisnici</a>
+            
+            <span style="float: right;">
+                <a href="#!/profile">Profil</a>
+                <a href="#!/logout">Odjavi se</a>
+                
+            </span>
+            
+        </span>
+    </div>
+
+<div class="profile">
+       
+
+    <div class="user-info">
+        <div class="info-header" ng-click="expandOrToggleUserInfo()">
+            <span ng-show="expandUserInfo">▼</span>
+            <span ng-show="!expandUserInfo">►</span>
+            &nbsp; Korisničke informacije
+            
+            
+        </div>
+        
+        <table ng-show="expandUserInfo" ng-hide="izmenaKorisnika">
+            <tr>
+                <td>Korisničko ime:</td>
+                <td>{{user.username}}</td>
+            </tr>
+            
+            <tr>
+                <td>Ime i prezime:</td>
+                <td>{{user.firstname}} {{user.lastname}}</td>
+            </tr>
+            
+            <tr>
+                <td>Telefon: </td>
+                <td>{{user.phone}}</td>
+            </tr>
+            
+            
+            <tr>
+                <td>Email: </td>
+                <td>{{user.email}}</td>
+            </tr>
+            
+            <tr>
+                <td>Datum registracije: </td>
+                <td>{{user.registrationDate}}</td>
+            </tr>
+            
+            <tr>
+                <td>Ovlašćenja: </td>
+                <td><span ng-bind="roles[user.role]"></span></td>
+            </tr>
+            
+        </table>
+    </div>
+    <div  ng-hide="!izmenaKorisnika">
+            <form name="form" ng-submit="saveModifiedUser()" >
+                    <div class="form-container">
+                        <div class="form-ctrl" >
+                           
+                                <label for="firstname">Korisničko ime: </label>
+                                 <input type="text" name="username"  ng-model="izmena.username" required />
+                                <span ng-show="form.username.$dirty && form.username.$error.required" >Obavezno polje.</span>
+                                
+                            
+                        </div>
+                        <div class="form-ctrl" >
+                                <label for="password">Lozinka: </label>
+                                <input type="password" name="password"   ng-model="izmena.password" required />
+                                <span ng-show="form.password.$dirty && form.password.$error.required" >Obavezno polje.</span>
+                        </div>
+
+                        <div class="form-ctrl">
+                                <label for="role">Ovlašćenja: </label>
+                                <select name="role" ng-model="roleStr"  required>
+                                    <option value="0">Kupac</option>
+                                    <option value="1">Dostavljač</option>
+                                    <option value="2">Administrator</option>
+                                </select>
+                        </div>
+            
+                        <div class="form-ctrl" >
+                                
+                                    <label for="firstname">Ime: </label>
+                                    <input type="text" name="firstname"  ng-model="izmena.firstname" required />
+                                    <span ng-show="form.firstname.$dirty && form.firstname.$error.required" >Obavezno polje.</span>
+                        </div>
+            
+                         <div class="form-ctrl" >
+                         
+                                <label for="lastname">Prezime: </label>
+                                <input type="text" name="lastname"  ng-model="izmena.lastname" required />
+                                <span ng-show="form.lastname.$dirty && form.lastname.$error.required" >Obavezno polje.</span>
+                                 
+                         </div>
+            
+                         <div class="form-ctrl">
+                            <label for="email">Email: </label></td>
+                            <input type="email" name="email"  ng-model="izmena.email" required />
+                            <span ng-show="form.email.$dirty && form.email.$error.required" >Obavezno polje.</span>
+                            <span ng-show="form.email.$dirty && form.email.$error.email" >Neispravan format email adrese.</span>
+                         </div>
+            
+                         <div class="form-ctrl" >
+                               
+                            <label for="phone">Telefon: </label>
+                            <input type="text" name="phone"  ng-model="izmena.phone"  ng-keypress="phoneNumberValidation(user)" required />
+                            <span ng-show="form.phone.$dirty && form.phone.$error.required" >Obavezno polje.</span>
+                            <span ng-show="form.phone.$dirty &&  !phoneValid " >Neispravan format telefonskog broja.</span>
+                             
+                         </div>
+
+                         <div class="form-ctrl" ng-show="user.role==0">
+                               
+                                <label for="phone">Bodovi: </label>
+                                <input type="number" name="bodovi"  ng-model="izmena.bodovi" />
+                               
+                                 
+                             </div>
+                        
+                        <div class="form-actions">
+                            <span>
+                                <button type="submit" ng-disabled="form.$invalid || !phoneValid" >Sačuvaj izmene</button> 
+                                <a href="" ng-click="cancelModify()">Odustani</a>
+                            </span>
+                            
+                            <span ng-show="!distinctUsername">Korisničko ime je zauzeto.</span>
+                            <span ng-show="!distinctEmail">Email adresa je zauzeta.</span>
+                      </div>
+                    </div>
+                </form>
+
+    </div>
+
+    <div class="porudzbine-info" ng-show="isKupacView" ng-hide="user.tip == 1">
+            <div class="info-header" ng-click="expandOrTogglePorudzbineInfo()">
+                <span ng-show="expandPorudzbineInfo">▼</span>
+                <span ng-show="!expandPorudzbineInfo">►</span>
+                &nbsp; Lista porudžbina
+                
+                
+            </div>
+            <div ng-show="expandPorudzbineInfo">
+                <table class="porudzbina-table outer" ng-show="user.porudzbine.length > 0">
+                    <tr>
+                        <td colspan="8">
+                            <table class="porudzbina-table">
+                                <tr>
+                                    <th class="tiny-field-td">&nbsp;</th>
+                                    <th class="tiny-field-td" ng-show="isAdmin" >&nbsp;</th>
+                                    <th class="tiny-field-td" ng-show="isAdmin" >&nbsp;</th>
+                                    <th>Datum</th>
+                                    <th>Broj stavki</th>
+                                    <th>Ukupna cena</th>
+                                    <th>Status poružbine</th>
+                                    <th>Napomena</th>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    
+                    <tr ng-repeat="porudzbina in user.porudzbine">
+                       <td colspan="8">
+                         <table class="porudzbina-table">
+                               <tr  ng-show="porudzbina.aktivna">
+                                   <td colspan="8">
+                                        <table class="porudzbina-table">
+                                            <tr>
+                                                <td class="tiny-field-td">
+                                                        <span ng-show="expandStavka[porudzbina.idPorudzbine]" ng-click="expandOrToggleStavke(porudzbina.idPorudzbine)">▼</span>
+                                                        <span ng-show="!expandStavka[porudzbina.idPorudzbine]" ng-click="expandOrToggleStavke(porudzbina.idPorudzbine)">►</span>
+                                                </td>
+                                                <td class="tiny-field-td" ng-show="isAdmin"   ng-click="modifyPorudzbina(porudzbina.idPorudzbine)" >✎</td>
+                                                <td class="tiny-field-td" ng-show="isAdmin" ng-click="deletePorudzbina(porudzbina.idPorudzbine)">🗑️</td>
+                                                <td>{{porudzbina.datum}}</td>
+                                                <td>{{porudzbina.stavkePorudzbine.length}}</td>
+                                                <td>{{porudzbina.ukupnaCena}} <span class ="unit">RSD</span></td>
+                                                <td>
+                                                    <span ng-hide="modify[porudzbina.idPorudzbine]"> {{statusiPorudzbine[porudzbina.statusPorudzbine]}}</span>
+                                                    <span ng-show="modify[porudzbina.idPorudzbine]">
+                                                        <select ng-model="modifyUser.porudzbine[porudzbina.idPorudzbine].strStatusPorudzbine">
+                                                            <option value="1">Poručeno</option>
+                                                            <option value="2">Dostava u toku</option>
+                                                            <option value="3">Otkazano</option>
+                                                            <option value="4">Dostavljeno</option>
+                                                        </select>
+                                                    </span>
+                                                </td>
+                                                <td>
+                                                    <span ng-hide="modify[porudzbina.idPorudzbine]">{{porudzbina.napomena}}</span>
+                                                    <span ng-show="modify[porudzbina.idPorudzbine]"><textarea ng-model="modifyUser.porudzbine[porudzbina.idPorudzbine].napomena"></textarea></span>
+                                                </td> 
+                                            </tr>
+                                        </table>
+                                    </td>
+                                   
+                                    
+                               </tr>
+                               <tr ng-show="expandStavka[porudzbina.idPorudzbine] && porudzbina.aktivna">
+                                    
+                                    <td colspan="8">
+                                        <div>
+                                            <table class="porudzbina-table">
+                                            <tr>
+                                                <th ng-show="modify[porudzbina.idPorudzbine]" class="tiny-field-td">&nbsp;</th>
+                                                <th>Naziv artikla</th>
+                                                <th>Broj porcija</th>
+                                                <th>Cena</th>
+                                                
+                                            </tr>
+                                                <tr ng-repeat="stavka in porudzbina.stavkePorudzbine">
+                                                    <td  ng-show="modify[porudzbina.idPorudzbine]" class="tiny-field-td" ng-click="removeStavka(stavka, porudzbina)">✕</td>
+                                                    <td>{{stavka.artikal.naziv}}</td>
+                                                    <td>{{stavka.brojPorcija}}</td>
+                                                    <td>{{stavka.brojPorcija * stavka.artikal.cena}} <span class ="unit">RSD</span></td>
+                                                </tr>
+            
+                                            </table>
+                                        </div>
+                                    </td>
+                               </tr>
+                               <tr ng-show="modify[porudzbina.idPorudzbine]">
+                                   <td colspan="8">
+                                       <div>
+                                           <button class="standard-button kupovina" ng-click="sacuvajIzmene(porudzbina.idPorudzbine)">Sačuvaj izmene</button>
+                                           <button class="standard-button" ng-click="odustaniIzmene(porudzbina.idPorudzbine)">Otkaži</button>
+                                           
+                                       </div>
+                                   </td>
+
+
+                               </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+                <span ng-show="user.porudzbine.length == 0" >Lista porudžbina je prazna.</span>
+            </div>
+        </div>
+
+        <div class="vozilo-actions" ng-show="isAdmin">
+                <button class="button-normal" ng-hide="selfDistruction" ng-click="deleteUser(user.username)">Obriši korisnika</button>
+                <button class="button-normal" ng-click="modifyKorisnik()">Izmeni korisnika</button>
+            </div>
+</div>
+
+<div class="loading" ng-show="loading"></div>
+

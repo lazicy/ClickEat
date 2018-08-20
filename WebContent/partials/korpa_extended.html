@@ -1,0 +1,82 @@
+<div class="navbar-main">
+
+
+    <span style="float: right;">
+
+        <span ng-show="!isLoggedIn">
+            <a href="#!/login">Prijavi se</a>
+            <a href="#!/registration">Registracija</a>
+        </span>
+    </span>
+    
+    <a href="#!/">Početna</a>
+    
+    <a href="#!/liste#artikli">Artikli</a>
+    <a href="#!/liste#restorani">Restorani</a>
+    <span ng-show="isLoggedIn">
+        <a href="#!/liste#vozila" ng-show="isAdmin || isDostavljac">Vozila</a>
+        <a href="#!/liste#users" ng-show="isAdmin">Korisnici</a>
+        
+        <span style="float: right;">
+            <a href="#!/profile">Profil</a>
+            <a href="#!/logout">Odjavi se</a>
+            
+        </span>
+        
+    </span>
+</div>
+
+
+<div ng-show="isKupac" class="korpa-extended" ng-class="{'supreme-container': blur}">
+    
+    <table class="porudzbina-table" ng-cloak>
+        
+        <tr>
+            <th class="tiny-field-td">&nbsp;</th>
+            <th class="left-align-td">Artikal</th>
+            <th>Restoran</th>
+            <th>Količina po porciji</th>
+            <th>Cena po porciji</th>
+            <th class="small-field">Broj porcija</th>
+            <th class="right-align-td">Ukupna cena proizvoda </th>
+        </tr>
+    
+        <tr ng-repeat="stavka in user.stavke">
+            <td class="tiny-field-td" ng-click="removeStavka(stavka)">✕</td>
+            <td class="left-align-td"><span class="naziv-artikla">{{stavka.artikal.naziv}}</span></td>
+            <td><span ng-bind="restoranMap[stavka.artikal.restoranId].naziv"> </span></td>
+            <td>{{stavka.artikal.kolicina}} <span class ="unit" ng-show="stavka.artikal.tip == 1"> g</span><span class="unit" ng-show="stavka.artikal.tip == 2">ml</span></td> 
+            <td>{{stavka.artikal.cena}} <span class ="unit">RSD</span></td>
+            <td class="small-field">{{stavka.brojPorcija}}</td>
+            <td class ="right-align-td">{{stavka.artikal.cena * stavka.brojPorcija}}  <span class ="unit">RSD</span></td> 
+        </tr>
+        
+    </table>
+    <div ng-show="user.ukupnaCena > 0">
+
+        <div class="ukupno" ng-cloak>Ukupno: <span class="ukupno-cifra">{{user.ukupnaCena}}</span> <span class="unit-large">RSD</span></div>
+        
+        
+        <h4>Napomena: </h4>
+        <textarea class="napomena" ng-model="napomena"></textarea>
+        <br/>
+        <div class="center-div">
+            <button class="poruci"  ng-click="napraviPorudzbinu()">Napravi porudžbinu</button>
+        </div>
+    </div>
+
+</div>
+
+<div ng-show="blur" class="dialog-porudzbina">
+    Ukupna cena poružbine iznosi {{user.ukupnaCena}}  dinara.
+    <br/>
+    
+    <button class="standard-button kupovina" ng-click="zavrsiPorudzbinu()">Završi kupovinu</button>
+    
+    <button class="standard-button" ng-click="odustani()">Odustani</button>
+
+
+</div>
+
+
+<div class="loading" ng-show="loading"></div>

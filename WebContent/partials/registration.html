@@ -1,0 +1,65 @@
+<div>
+   
+
+   
+    <form name="form" ng-submit="register(user)" >
+        <div class="form-container">
+            <h1>Registracija</h1>
+            <div class="form-ctrl" >
+               
+                    <label for="firstname">Korisničko ime: </label>
+                     <input type="text" name="username"  ng-model="user.username" required />
+                    <span ng-show="form.username.$dirty && form.username.$error.required" >Obavezno polje.</span>
+                    
+                
+            </div>
+            <div class="form-ctrl" >
+                    <label for="password">Lozinka: </label>
+                    <input type="password" name="password"   ng-model="user.password" required />
+                    <span ng-show="form.password.$dirty && form.password.$error.required" >Obavezno polje.</span>
+            </div>
+
+            <div class="form-ctrl" >
+                    
+                        <label for="firstname">Ime: </label>
+                        <input type="text" name="firstname"  ng-model="user.firstname" required />
+                        <span ng-show="form.firstname.$dirty && form.firstname.$error.required" >Obavezno polje.</span>
+            </div>
+
+             <div class="form-ctrl" >
+             
+                    <label for="lastname">Prezime: </label>
+                    <input type="text" name="lastname"  ng-model="user.lastname" required />
+                    <span ng-show="form.lastname.$dirty && form.lastname.$error.required" >Obavezno polje.</span>
+                     
+             </div>
+
+             <div class="form-ctrl">
+                <label for="email">Email: </label></td>
+                <input type="email" name="email"  ng-model="user.email" required />
+                <span ng-show="form.email.$dirty && form.email.$error.required" >Obavezno polje.</span>
+                <span ng-show="form.email.$dirty && form.email.$error.email" >Neispravan format email adrese.</span>
+             </div>
+
+             <div class="form-ctrl" >
+                   
+                <label for="phone">Telefon: </label>
+                <input type="text" name="phone"  ng-model="user.phone"  ng-keypress="phoneNumberValidation(user)" required />
+                <span ng-show="form.phone.$dirty && form.phone.$error.required" >Obavezno polje.</span>
+                <span ng-show="form.phone.$dirty &&  !phoneValid " >Neispravan format telefonskog broja.</span>
+                 
+             </div>
+            
+            <div class="form-actions">
+                <button type="submit" ng-disabled="form.$invalid || !phoneValid" >Register</button>
+                
+                <span ng-show="!distinctUsername">Korisničko ime je zauzeto.</span>
+                <span ng-show="!distinctEmail">Email adresa je zauzeta.</span>
+          </div>
+        </div>
+    </form>
+
+
+
+
+</div>

@@ -1,0 +1,29 @@
+<div class="restoran-field linkless">
+    <a href="#!/restoran#{{r.id}}">
+        <div class="rect">
+            <div class="image-container">
+                <img ng-src=" {{r.image}} "> 
+                <div class="overlay">
+                    <div class="text-overlay">Detaljnije</div>
+                </div>
+            </div>
+        </div>
+    </a>
+    <div class="rect">
+        <div class="info-restoran">
+            <span class="naziv">{{r.naziv}}</span>
+            <br/>
+            {{r.adresa}}
+            <br/>
+            <span ng-show="isAdmin">
+                    <span ng-click="izmenaRestorana(r.id)">✎</span>
+                    <span ng-click="brisanjeRestorana(r.id)">🗑️</span>
+
+            </span>
+        </div>
+    </div>
+
+   
+
+
+</div>

@@ -1,0 +1,5 @@
+1;Mercedes;C250;3;NS1234;2014;false;Dobra kola;true;
+2;CBoardman;SL9;1;-;2012;false;Srebrna strela;true;
+3;Moped;XC22;2;NS223SI;1999;false;Ideide;true;
+4;Hundai;i30;3;NS999AI;2012;false;Brza kolica;true;
+5;Specialized Tarmac;S-Works;1;-;2015;false;Nibalijeva makina;true;

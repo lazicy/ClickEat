@@ -1,0 +1,12 @@
+<div class="restoran-box" ng-show="r.aktivan">
+    <div class="tip{{r.kategorija}}">{{r.kategorijaStr}}</div>
+    <h4> {{ r.naziv }}</h3>
+    <div class="image-container">
+        <img ng-src=" {{r.image}} "> 
+        <div class="overlay">
+            <div class="text-overlay">Detaljnije</div>
+        </div>
+    </div>
+     <br/>
+    <span class="adresa">{{ r.adresa }}</span>
+</div>
